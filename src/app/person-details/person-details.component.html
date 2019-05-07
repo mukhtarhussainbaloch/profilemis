@@ -1,0 +1,184 @@
+<div class="form-container">
+<form [formGroup]="personForm" (ngSubmit)="savePerson(null)" *ngIf="person | async" class="normal-form">
+  <mat-grid-list cols="2" rowHeight="600px">
+    <mat-grid-tile>
+      <div class="controles-container">
+        <mat-form-field>
+          <input matInput formControlName="$key">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Title</mat-label>
+          <mat-select formControlName="title" placeholder="Title">
+            <mat-option value="Mr">Mr</mat-option>
+            <mat-option value="Ms">Ms</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>First Name</mat-label>
+          <input matInput placeholder="First Name" formControlName="firstName"/>
+        </mat-form-field>
+
+
+        <mat-form-field>
+          <input matInput placeholder="CNIC Number" formControlName="cnic"/>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Domicile" formControlName="domicile"/>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Emergency Contact Number" formControlName="emergencyContactNo"/>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Photo upload" formControlName="photoPath"/>
+        </mat-form-field>
+
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="controles-container">
+        <!--        <mat-form-field>-->
+        <div class="add-bottom-padding">
+          <mat-radio-group formControlName="gender">
+            <mat-radio-button value="MALE">Male</mat-radio-button>
+            <mat-radio-button value="FEMALE">Female</mat-radio-button>
+            <mat-radio-button value="OTHER">Other</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <!--        </mat-form-field>-->
+        <!--        <mat-form-field>-->
+        <!--          <mat-label>Gender</mat-label>-->
+        <!--          <mat-select formControlName="gender">-->
+        <!--            <mat-option  value="MALE">Male</mat-option>-->
+        <!--            <mat-option  value="FEMALE">Female</mat-option>-->
+        <!--          </mat-select>-->
+        <!--        </mat-form-field>-->
+        <mat-form-field>
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="Last Name" formControlName="lastName"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Father's Name" formControlName="fatherName"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Nationality" formControlName="nationality"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Date of Birth" [matDatepicker]="picker" formControlName="dateOfBirth">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select formControlName="religion" placeholder="Religion">
+            <mat-option value="ISLAM">Islam</mat-option>
+            <mat-option value="OTHER">Other</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Photo upload" formControlName="photoPath"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="email address" formControlName="email"/>
+        </mat-form-field>
+        <div class="button-row">
+          <button mat-raised-button type="submit" color="primary">Save</button>
+          <button mat-raised-button color="warn">Cancel</button>
+        </div>
+      </div>
+
+      <div class="add-bottom-container">
+        <div class="add-bottom-padding">
+
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</form>
+</div>
+<!-- <form [formGroup]="personForm" (ngSubmit)="savePerson(null)" *ngIf="person | async" class="normal-form">-->
+<!--      <mat-grid-list cols="2" rowHeight="300px">-->
+<!--        <mat-grid-tile>-->
+<!--          <div class="controles-container">-->
+<!--            -->
+<!--          </div>-->
+<!--          <mat-form-field>-->
+<!--            <mat-label>Title</mat-label>-->
+<!--            <mat-select formControlName="title" placeholder="Title">-->
+<!--              <mat-option value="Mr">Mr</mat-option>-->
+<!--              <mat-option value="Ms">Ms</mat-option>-->
+<!--            </mat-select>-->
+<!--          </mat-form-field>-->
+<!--        </mat-grid-tile>-->
+<!--        <mat-grid-tile>-->
+<!--          <mat-form-field>-->
+<!--            <mat-label>First Name</mat-label>-->
+<!--            <input matInput placeholder="First Name" formControlName="firstName" />-->
+<!--          </mat-form-field>-->
+<!--        </mat-grid-tile>-->
+<!--        <mat-grid-tile>-->
+<!--          <mat-form-field>-->
+<!--            <mat-label>Last Name</mat-label>-->
+<!--            <input matInput placeholder="Last Name" formControlName="lastName" />-->
+<!--          </mat-form-field>-->
+<!--        </mat-grid-tile>-->
+<!--        <mat-grid-tile>-->
+<!--          <mat-form-field>-->
+<!--            <input matInput placeholder="Father's Name" formControlName="fatherName" />-->
+<!--          </mat-form-field>-->
+<!--        </mat-grid-tile>-->
+<!--        <mat-grid-tile>-->
+<!--          <mat-form-field>-->
+<!--            <input matInput placeholder="CNIC Number" formControlName="cnic" />-->
+<!--          </mat-form-field>-->
+<!--        </mat-grid-tile>-->
+<!--        <mat-grid-tile>-->
+<!--          <mat-form-field>-->
+<!--            <mat-label>Gender</mat-label>-->
+<!--            <mat-select formControlName="gender">-->
+<!--              <mat-option  value="MALE">Male</mat-option>-->
+<!--              <mat-option  value="FEMALE">Female</mat-option>-->
+<!--            </mat-select>-->
+<!--          </mat-form-field>-->
+<!--        </mat-grid-tile>-->
+<!--        <mat-grid-tile>-->
+<!--          <mat-form-field>-->
+<!--            <input matInput placeholder="Domicile" formControlName="domicile" />-->
+<!--          </mat-form-field>-->
+<!--        </mat-grid-tile>-->
+<!--        <mat-grid-tile>-->
+<!--          <mat-form-field>-->
+<!--            <input matInput placeholder="Nationality" formControlName="nationality" />-->
+<!--          </mat-form-field>-->
+<!--        </mat-grid-tile>-->
+<!--        <mat-grid-tile>-->
+<!--          <mat-form-field>-->
+<!--            <input matInput placeholder="Emergency Contact Number" formControlName="emergencyContactNo" />-->
+<!--          </mat-form-field>-->
+<!--        </mat-grid-tile>-->
+<!--        <mat-grid-tile>-->
+<!--          <mat-form-field>-->
+<!--            <input matInput formControlName="dateOfBirth" />-->
+<!--          </mat-form-field>-->
+<!--        </mat-grid-tile>-->
+<!--        <mat-grid-tile>-->
+<!--        </mat-grid-tile>-->
+<!--        <mat-grid-tile>-->
+<!--          <mat-form-field>-->
+<!--            <input matInput formControlName="photoPath" />-->
+<!--          </mat-form-field>-->
+<!--        </mat-grid-tile>-->
+<!--        <mat-grid-tile>-->
+<!--          <mat-form-field>-->
+<!--            <mat-select formControlName="religion" placeholder="Religion">-->
+<!--              <mat-option value="ISLAM">Islam</mat-option>-->
+<!--              <mat-option value="OTHER">Other</mat-option>-->
+<!--            </mat-select>-->
+<!--          </mat-form-field>-->
+<!--        </mat-grid-tile>-->
+<!--      </mat-grid-list>-->
+<!--&lt;!&ndash;      <button  mat-raised-button type="submit"  color="primary">Save</button>&ndash;&gt;-->
+
+<!--    </form>-->

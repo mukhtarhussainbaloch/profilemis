@@ -1,0 +1,17 @@
+.toolbar-title {
+  margin: 0 16px 0 16px;
+}
+.navigation-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.crm-navigation-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 998;
+}
+

@@ -1,0 +1,41 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="over">
+
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <h2> University of Turbat </h2>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-nav-list>
+
+      <h2 matSubheader> {{ 'MY_WORK'  }} </h2>
+
+      <a *ngFor="let item of myWorkRoutes"
+         mat-list-item
+         (click)="sidenav.close()"
+         routerLinkActive
+         #routerLinkActiveInstance="routerLinkActive"
+         [class.list-item-active]="routerLinkActiveInstance.isActive"
+         [routerLink]="[item.route]">
+        <mat-icon matListIcon> {{ item.icon }} </mat-icon>
+        {{item.title}}
+      </a>
+
+      <mat-divider></mat-divider>
+
+      ...
+
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-navigation-bar
+
+      (toggleSidenav)="sidenav.toggle()"
+    >
+    </app-navigation-bar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

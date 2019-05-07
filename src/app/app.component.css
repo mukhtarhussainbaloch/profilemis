@@ -1,0 +1,47 @@
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+.toolbar-title {
+  margin: 0 ; crm-toolbar-title-padding: 0 ;crm-toolbar-title-padding: 0;
+}
+
+.navigation-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+
+}
+
+/*flex example css for demo only remove later*/
+@media (min-device-width: 768px) {
+  .container-1 {
+    display: flex;
+    /*flex-direction: column;*/
+  }
+  .container-2{
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.container-1 div, .container-2 div{
+  border: 1px #ccc solid;
+  padding: 10px;
+}
+.box-1{
+flex: 1;
+}
+.box-2{
+flex: 3;
+}
+.box-3{
+  flex: 1;
+ }
+.container-2-box{
+flex-basis: 27%;
+}
