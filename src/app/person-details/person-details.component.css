@@ -4,30 +4,7 @@
 /*  margin-right: 50px;*/
 /*  !*display: flex;*!*/
 /*}*/
-
-
-.form-container{
-  display: flex;
-}
-form.normal-form{
-  margin: 10px;
-
-}
-.controles-container{
-  width: 100%;
-  padding: 5%;
-}
-
-.controles-container > * {
-  width: 100%;
-}
 .add-bottom-padding {
-  padding-bottom: 20px;
-}
-mat-radio-group mat-radio-button {
-  margin-left: 5px;
-}
-
-.button-row button{
-  margin: 5px;
+  padding-top: 22px;
+  padding-bottom: 23px;
 }
