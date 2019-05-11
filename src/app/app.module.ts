@@ -1,6 +1,15 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+  MAT_MOMENT_DATE_FORMATS,
+  MatMomentDateModule,
+  MomentDateAdapter
+} from '@angular/material-moment-adapter';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MyHttpLogInterceptor } from './http.interceptor';
+
 
 import {
   MatButtonModule,
@@ -18,7 +27,7 @@ import {
   MatInputModule, MatSelectModule,
   MatDialogModule,
   MatDialogRef, MatDatepickerModule,
-  MatNativeDateModule, MatRadioModule
+  MatNativeDateModule, MatRadioModule, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS
 } from '@angular/material';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -34,7 +43,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {NavigationBarComponent} from './navigation-bar/navigation-bar.component';
 import {LoginComponent} from './login/login.component';
 import {PlaceholderComponent} from './placeholder/placeholder.component';
-import {PersonDetailsComponent} from './person-details/person-details.component';
+import { PersonDetailsComponent} from './person-details/person-details.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
@@ -76,10 +85,16 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatDialogModule,
     FormsModule,
     MatDatepickerModule,
-    MatNativeDateModule,
-    MatRadioModule
+    MatRadioModule,
+    MatMomentDateModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'ur'},
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    // { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true }},
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    { provide: HTTP_INTERCEPTORS, useClass: MyHttpLogInterceptor, multi: true }
+  ],
   entryComponents: [PersonDetailsComponent],
   bootstrap: [AppComponent]
 })

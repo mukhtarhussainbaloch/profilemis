@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export class Person {
   id: number;
   firstName: string;
@@ -7,7 +9,7 @@ export class Person {
   domicile: string;
   nationality: string;
   emergencyContactNo: string;
-  dateOfBirth: Date;
+  dateOfBirth: moment.Moment;
   gender: string;
   religion: string;
   cnic: string;

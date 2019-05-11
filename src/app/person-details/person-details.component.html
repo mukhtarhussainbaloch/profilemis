@@ -1,9 +1,9 @@
   <form [formGroup]="personForm" (ngSubmit)="savePerson(null)" *ngIf="person | async" >
     <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutGap="1%"   fxLayoutAlign.gt-sm="space-around" style="margin-left: 10px; margin-right: 10px">
 
-    <div class="continer-column" fxFlex="45" fxLayout="column" >
+    <div class="continer-column" fxFlex="40" fxLayout="column" >
               <mat-form-field>
-                <input matInput formControlName="$key">
+                <input matInput formControlName="id">
               </mat-form-field>
               <mat-form-field fxFlexAlign="start">
                 <mat-label>Title</mat-label>
@@ -29,7 +29,7 @@
                 <input matInput placeholder="Photo upload" formControlName="photoPath"/>
               </mat-form-field>
     </div>
-    <div class="control-columnt" fxFlex="45" fxLayout="column" >
+    <div class="control-columnt" fxFlex="40" fxLayout="column" >
               <div class="add-bottom-padding">
                 <mat-radio-group formControlName="gender" fxFlexAlign="start">
                   <mat-radio-button value="MALE">Male</mat-radio-button>
@@ -66,11 +66,9 @@
               </mat-form-field>
 
     </div>
+      <div class="button-row" fxFlex="15" >
+                  <button mat-raised-button type="submit" color="primary" (click)="savePerson()">Save</button>
+                  <button mat-raised-button color="warn">Cancel</button>
+      </div>
     </div>
   </form>
-<!--        <div class="button-row">-->
-<!--          <button mat-raised-button type="submit" color="primary">Save</button>-->
-<!--          <button mat-raised-button color="warn">Cancel</button>-->
-<!--        </div>-->
-<!--      </div>-->
-

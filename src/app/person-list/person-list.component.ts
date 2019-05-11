@@ -19,10 +19,11 @@ export class PersonListComponent implements OnInit, AfterViewInit {
   dataSource: PersonDataSource;
   person: Person;
   selectedPerson: Person;
+
   @ViewChild('input') input: ElementRef;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'cnic', 'title', 'firstName', 'lastName', 'fatherName', 'dateOfBirth', 'gender', 'edit'];
+  displayedColumns = ['id', 'cnic', 'title', 'firstName', 'lastName', 'fatherName', 'dateOfBirth', 'gender', 'actions'];
 
   ngOnInit(): void {
 

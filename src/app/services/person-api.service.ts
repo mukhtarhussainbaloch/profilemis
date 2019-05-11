@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Person} from '../model/person';
 import {map} from 'rxjs/operators';
+import {Moment} from 'moment';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,15 @@ export class PersonApiService {
     return this.httpClient.post(this.personApiUrl, person);
   }
 
+  updatePerson(person: Person) {
+    moment.fn.toJSON = function() {
+      return   this.utc(true).format();
+    };
+    return this.httpClient.put(this.personApiUrl + '/' + person.id, person)
+      .subscribe((value => console.log('person updated with following details', value)),
+        error1 => console.error('Error updating the person', error1));
+  }
+
   getPersonById(id: string) {
     console.log(this.personApiUrl + '/' + id);
     return this.httpClient.get(this.personApiUrl + '/' + id)
@@ -27,7 +38,6 @@ export class PersonApiService {
           return res;
         })
       );
-    console.log('I am being called', this.personApiUrl + '/' + id);
   }
 
   getAllPerson(filter = '', sortOrder = 'asc',
