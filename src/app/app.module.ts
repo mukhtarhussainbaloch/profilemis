@@ -1,6 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NgMatSearchBarModule} from 'ng-mat-search-bar';
+
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
   MAT_MOMENT_DATE_FORMATS,
@@ -86,7 +88,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     MatDatepickerModule,
     MatRadioModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    NgMatSearchBarModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'ur'},

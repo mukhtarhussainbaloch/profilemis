@@ -29,23 +29,7 @@ const moment = _moment;
   styleUrls: ['./person-details.component.css']
 })
 export class PersonDetailsComponent implements OnInit {
-
-  personForm = this.fb.group({
-    id: [null],
-    firstName: [''],
-    lastName: [''],
-    title: [''],
-    fatherName: [''],
-    domicile: [''],
-    nationality: [''],
-    emergencyContactNo: [''],
-    dateOfBirth: [''],
-    email: [''],
-    gender: [''],
-    religion: [''],
-    cnic: [''],
-    photoPath: ['']
-  });
+  personForm: FormGroup;
   private person: Observable<Person>;
   dataSource: PersonDataSource;
 
@@ -53,10 +37,29 @@ export class PersonDetailsComponent implements OnInit {
   constructor(private fb: FormBuilder, private route: ActivatedRoute,
               private router: Router, private personApiService: PersonApiService,
   ) {
+    this.personForm = this.fb.group({
+      id: [null],
+      firstName: [''],
+      lastName: [''],
+      title: [''],
+      fatherName: [''],
+      domicile: [''],
+      nationality: [''],
+      emergencyContactNo: [''],
+      dateOfBirth: [''],
+      email: [''],
+      gender: [''],
+      religion: [''],
+      cnic: [''],
+      photoPath: ['']
+    });
   }
 
   ngOnInit() {
-    console.log('ng init working for me');
+
+  }
+
+  loadPerson() {
     const personId = this.route.snapshot.paramMap.get('id');
     this.dataSource = new PersonDataSource(this.personApiService);
     this.person = this.personApiService.getPersonById(personId).pipe(
@@ -65,12 +68,10 @@ export class PersonDetailsComponent implements OnInit {
           return this.personForm.patchValue(person);
         }
       ));
-    // this.dataSource.loadPersonDataById(personId);
   }
 
   savePerson() {
     this.personApiService.updatePerson(this.personForm.getRawValue());
     console.log('form values', this.personForm.getRawValue());
-    // console.log('saving .. ', person);
   }
 }

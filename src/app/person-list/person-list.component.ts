@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatPaginator, MatSort} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatPaginator, MatSort} from '@angular/material';
 import {PersonDataSource} from './person-datasource';
 import {PersonApiService} from '../services/person-api.service';
 import {Person} from '../model/person';
@@ -16,6 +16,7 @@ import {PersonDetailsComponent} from '../person-details/person-details.component
 export class PersonListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  searchKey: string;
   dataSource: PersonDataSource;
   person: Person;
   selectedPerson: Person;
@@ -56,7 +57,9 @@ export class PersonListComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  constructor(private route: ActivatedRoute, private personApiService: PersonApiService) {
+  constructor(private route: ActivatedRoute,
+              private personApiService: PersonApiService,
+              private dialog: MatDialog) {
 
   }
 
@@ -70,7 +73,7 @@ export class PersonListComponent implements OnInit, AfterViewInit {
 
   onRowClicked(person: Person) {
     this.selectedPerson = person;
-    console.log('row clicked:' , person);
+    console.log('row clicked:', person);
     // const dialogRef = this.dialog.open(PersonDetailsComponent, {
     //   width: '500px',
     //   //data: {name: this.name, animal: this.animal}
@@ -80,5 +83,19 @@ export class PersonListComponent implements OnInit, AfterViewInit {
     //   console.log('The dialog was closed');
     //   //this.animal = result;
     // });
+  }
+
+  onCreateNew() {
+    // this.dialog.open(PersonDetailsComponent)
+    const dialogRef = this.dialog.open(PersonDetailsComponent, {
+      width: '60%',
+      // data: {person: new Person()}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.animal = result;
+    });
+
   }
 }

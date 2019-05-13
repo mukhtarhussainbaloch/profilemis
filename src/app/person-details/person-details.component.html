@@ -1,7 +1,9 @@
-  <form [formGroup]="personForm" (ngSubmit)="savePerson(null)" *ngIf="person | async" >
+<h1>person details</h1>
+<form [formGroup]="personForm" (ngSubmit)="savePerson(null)"
+>
     <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutGap="1%"   fxLayoutAlign.gt-sm="space-around" style="margin-left: 10px; margin-right: 10px">
 
-    <div class="continer-column" fxFlex="40" fxLayout="column" >
+    <div class="controls-container" fxFlex="40" fxLayout="column" >
               <mat-form-field>
                 <input matInput formControlName="id">
               </mat-form-field>
@@ -29,7 +31,7 @@
                 <input matInput placeholder="Photo upload" formControlName="photoPath"/>
               </mat-form-field>
     </div>
-    <div class="control-columnt" fxFlex="40" fxLayout="column" >
+    <div class="controls-container" fxFlex="40" fxLayout="column" >
               <div class="add-bottom-padding">
                 <mat-radio-group formControlName="gender" fxFlexAlign="start">
                   <mat-radio-button value="MALE">Male</mat-radio-button>
