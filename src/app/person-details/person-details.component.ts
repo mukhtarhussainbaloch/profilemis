@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Person} from '../model/person';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -8,21 +8,11 @@ import {PersonApiService} from '../services/person-api.service';
 import {Observable} from 'rxjs';
 
 import * as _moment from 'moment';
-import {MatDateFormats} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDateFormats, MatDialogRef} from '@angular/material';
 
 const moment = _moment;
 
-// export const MOMENT_DATE_FORMATS: MatDateFormats = {
-//   parse: {
-//     dateInput: 'DD/MM/YYYY'
-//   },
-//   display: {
-//     dateInput: 'DD/MM/YYYY',
-//     monthYearLabel: 'MMMM Y',
-//     dateA11yLabel: 'LL',
-//     monthYearA11yLabel: 'MMMM Y'
-//   }
-// };
+
 @Component({
   selector: 'app-person-details',
   templateUrl: './person-details.component.html',
@@ -32,10 +22,13 @@ export class PersonDetailsComponent implements OnInit {
   personForm: FormGroup;
   private person: Observable<Person>;
   dataSource: PersonDataSource;
+  description = 'Person details';
 
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute,
               private router: Router, private personApiService: PersonApiService,
+              public dialogRef: MatDialogRef<PersonDetailsComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: Person
   ) {
     this.personForm = this.fb.group({
       id: [null],
@@ -56,7 +49,8 @@ export class PersonDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.log('dialog data', this.data);
+    this.personForm.patchValue(this.data);
   }
 
   loadPerson() {
@@ -70,8 +64,8 @@ export class PersonDetailsComponent implements OnInit {
       ));
   }
 
-  savePerson() {
-    this.personApiService.updatePerson(this.personForm.getRawValue());
-    console.log('form values', this.personForm.getRawValue());
+
+  onCancle() {
+    this.dialogRef.close();
   }
 }

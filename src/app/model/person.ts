@@ -14,4 +14,5 @@ export class Person {
   religion: string;
   cnic: string;
   photoPath: string;
+  email: string;
 }

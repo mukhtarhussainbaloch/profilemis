@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatDialogConfig, MatPaginator, MatSort} from '@angular/material';
+import {MatDialogConfig, MatPaginator, MatSort} from '@angular/material';
 import {PersonDataSource} from './person-datasource';
 import {PersonApiService} from '../services/person-api.service';
 import {Person} from '../model/person';
@@ -7,6 +7,7 @@ import {fromEvent, merge} from 'rxjs';
 import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {PersonDetailsComponent} from '../person-details/person-details.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-person-list',
@@ -28,7 +29,6 @@ export class PersonListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-
     this.person = this.route.snapshot.data['content'];
     this.dataSource = new PersonDataSource(this.personApiService);
     this.dataSource.loadPersonData('', 'asc', 0, 20);
@@ -37,7 +37,6 @@ export class PersonListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-
     fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
         debounceTime(150),
@@ -73,29 +72,40 @@ export class PersonListComponent implements OnInit, AfterViewInit {
 
   onRowClicked(person: Person) {
     this.selectedPerson = person;
-    console.log('row clicked:', person);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = this.selectedPerson;
+    dialogConfig.width = '60%';
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const matDialogRef = this.dialog.open(PersonDetailsComponent, dialogConfig);
+
     // const dialogRef = this.dialog.open(PersonDetailsComponent, {
-    //   width: '500px',
-    //   //data: {name: this.name, animal: this.animal}
+    //   width: '60%',
+    //   data: this.selectedPerson,
     // });
-    //
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   //this.animal = result;
-    // });
+
+    matDialogRef.afterClosed().subscribe(result => {
+      this.person = result;
+      this.personApiService.updatePerson(this.person).subscribe(value => {
+      }, error1 => console.log('Error saving data ', error1));
+    });
   }
 
   onCreateNew() {
-    // this.dialog.open(PersonDetailsComponent)
     const dialogRef = this.dialog.open(PersonDetailsComponent, {
       width: '60%',
       // data: {person: new Person()}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      //this.animal = result;
+      this.person = result;
+      this.personApiService.savePerson(this.person).subscribe(value => {
+        console.log('Resut of object save', value);
+      }, error1 => console.log('Error saving data ', error1));
     });
 
   }
+
 }

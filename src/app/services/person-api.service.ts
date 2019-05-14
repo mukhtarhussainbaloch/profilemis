@@ -22,11 +22,12 @@ export class PersonApiService {
 
   updatePerson(person: Person) {
     moment.fn.toJSON = function() {
-      return   this.utc(true).format();
+      return this.utc(true).format();
     };
-    return this.httpClient.put(this.personApiUrl + '/' + person.id, person)
-      .subscribe((value => console.log('person updated with following details', value)),
-        error1 => console.error('Error updating the person', error1));
+
+    return this.httpClient.put(this.personApiUrl + '/' + person.id, person);
+    // .subscribe((value => console.log('person updated with following details', value)),
+    //   error1 => console.error('Error updating the person', error1));
   }
 
   getPersonById(id: string) {

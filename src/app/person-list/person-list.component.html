@@ -64,10 +64,12 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
       <td mat-cell *matCellDef="let row">
-        <button mat-icon-button color="primary" class="nav-item nav-link-edit" [routerLink]="['/person',row.id]">
+        <button mat-icon-button color="primary" class="nav-item nav-link-edit" (click)="onRowClicked(row)">
           <mat-icon>launch</mat-icon>
         </button>
-        <button mat-icon-button color="warn" class="nav-item nav-link-edit" [routerLink]="['/person',row.id]">
+<!--        <button mat-icon-button color="warn" class="nav-item nav-link-edit" [routerLink]="['/person',row.id]">-->
+          <button mat-icon-button color="warn" class="nav-item nav-link-edit" (click)="onRowClicked(row)">
+
           <mat-icon>delete</mat-icon>
         </button>
       </td>
@@ -79,7 +81,6 @@
           <mat-spinner></mat-spinner>
         </div>
       </th>
-      <!--      <td mat-cell *matCellDef="let row">{{row.gender}}</td>-->
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;">row</tr>
@@ -88,7 +89,7 @@
   </table>
 
   <mat-paginator #paginator
-                 [length]="500"
+                 [length]="510"
                  [pageIndex]="0"
                  [pageSize]="10"
                  [pageSizeOptions]="[5,25, 50, 100, 250]"

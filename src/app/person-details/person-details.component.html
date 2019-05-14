@@ -1,76 +1,79 @@
-<h1>person details</h1>
-<form [formGroup]="personForm" (ngSubmit)="savePerson(null)"
->
-    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutGap="1%"   fxLayoutAlign.gt-sm="space-around" style="margin-left: 10px; margin-right: 10px">
+<div mat-dialog-title>{{description}}</div>
+<div mat-dialog-content style="height: 400px">
+  <form [formGroup]="personForm" >
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign.gt-sm="space-around"
+         style="margin-left: 10px; margin-right: 10px">
 
-    <div class="controls-container" fxFlex="40" fxLayout="column" >
-              <mat-form-field>
-                <input matInput formControlName="id">
-              </mat-form-field>
-              <mat-form-field fxFlexAlign="start">
-                <mat-label>Title</mat-label>
-                <mat-select formControlName="title" placeholder="Title" >
-                  <mat-option value="Mr">Mr</mat-option>
-                  <mat-option value="Ms">Ms</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field>
-                <mat-label>First Name</mat-label>
-                <input matInput placeholder="First Name" formControlName="firstName"/>
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="CNIC Number" formControlName="cnic"/>
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Domicile" formControlName="domicile"/>
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Emergency Contact Number" formControlName="emergencyContactNo"/>
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Photo upload" formControlName="photoPath"/>
-              </mat-form-field>
-    </div>
-    <div class="controls-container" fxFlex="40" fxLayout="column" >
-              <div class="add-bottom-padding">
-                <mat-radio-group formControlName="gender" fxFlexAlign="start">
-                  <mat-radio-button value="MALE">Male</mat-radio-button>
-                  <mat-radio-button value="FEMALE">Female</mat-radio-button>
-                  <mat-radio-button value="OTHER">Other</mat-radio-button>
-                </mat-radio-group>
-              </div>
-              <mat-form-field>
-                <mat-label>Last Name</mat-label>
-                <input matInput placeholder="Last Name" formControlName="lastName"/>
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Father's Name" formControlName="fatherName"/>
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Nationality" formControlName="nationality"/>
-              </mat-form-field>
-              <mat-form-field fxFlexAlign="start">
-                <input matInput placeholder="Date of Birth" [matDatepicker]="picker" formControlName="dateOfBirth">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-              <mat-form-field fxFlexAlign="start">
-                <mat-select formControlName="religion" placeholder="Religion" >
-                  <mat-option value="ISLAM">Islam</mat-option>
-                  <mat-option value="OTHER">Other</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="Photo upload" formControlName="photoPath"/>
-              </mat-form-field>
-              <mat-form-field>
-                <input matInput placeholder="email address" formControlName="email"/>
-              </mat-form-field>
+      <div fxLayout="column">
+        <mat-form-field fxHide>
+          <input matInput formControlName="id">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Title</mat-label>
+          <mat-select formControlName="title" placeholder="Title">
+            <mat-option value="Mr">Mr</mat-option>
+            <mat-option value="Ms">Ms</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>First Name</mat-label>
+          <input matInput placeholder="First Name" formControlName="firstName"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="CNIC Number" formControlName="cnic"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Domicile" formControlName="domicile"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Emergency Contact Number" formControlName="emergencyContactNo"/>
+        </mat-form-field>
 
-    </div>
-      <div class="button-row" fxFlex="15" >
-                  <button mat-raised-button type="submit" color="primary" (click)="savePerson()">Save</button>
-                  <button mat-raised-button color="warn">Cancel</button>
       </div>
+      <div fxLayout="column">
+        <div class="add-bottom-padding">
+          <mat-radio-group formControlName="gender" fxFlexAlign="start">
+            <mat-radio-button value="MALE">Male</mat-radio-button>
+            <mat-radio-button value="FEMALE">Female</mat-radio-button>
+            <mat-radio-button value="OTHER">Other</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <mat-form-field>
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="Last Name" formControlName="lastName"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Father's Name" formControlName="fatherName"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Nationality" formControlName="nationality"/>
+        </mat-form-field>
+        <mat-form-field >
+          <input matInput placeholder="Date of Birth" [matDatepicker]="picker" formControlName="dateOfBirth">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+      </div>
+      <div fxLayout="column">
+        <mat-form-field >
+          <mat-select formControlName="religion" placeholder="Religion">
+            <mat-option value="ISLAM">Islam</mat-option>
+            <mat-option value="OTHER">Other</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="email address" formControlName="email"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Photo upload" formControlName="photoPath"/>
+        </mat-form-field>
+      </div>
+      </div>
+
+    <div mat-dialog-actions>
+      <button mat-raised-button type="submit" color="primary" [mat-dialog-close]="personForm.getRawValue()" cdkFocusInitial>Save</button>
+      <button mat-raised-button color="warn" (click)="onCancle()">Cancel</button>
     </div>
   </form>
+</div>

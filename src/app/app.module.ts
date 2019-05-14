@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { NgMatSearchBarModule} from 'ng-mat-search-bar';
+import {NgMatSearchBarModule} from 'ng-mat-search-bar';
 
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
@@ -9,8 +9,8 @@ import {
   MatMomentDateModule,
   MomentDateAdapter
 } from '@angular/material-moment-adapter';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MyHttpLogInterceptor } from './http.interceptor';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {MyHttpLogInterceptor} from './http.interceptor';
 
 
 import {
@@ -28,8 +28,8 @@ import {
   MatFormFieldModule,
   MatInputModule, MatSelectModule,
   MatDialogModule,
-  MatDialogRef, MatDatepickerModule,
-  MatNativeDateModule, MatRadioModule, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS
+  MatDatepickerModule,
+  MatRadioModule, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS
 } from '@angular/material';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -45,7 +45,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {NavigationBarComponent} from './navigation-bar/navigation-bar.component';
 import {LoginComponent} from './login/login.component';
 import {PlaceholderComponent} from './placeholder/placeholder.component';
-import { PersonDetailsComponent} from './person-details/person-details.component';
+import {PersonDetailsComponent} from './person-details/person-details.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
@@ -89,14 +89,15 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatDatepickerModule,
     MatRadioModule,
     MatMomentDateModule,
-    NgMatSearchBarModule
+    NgMatSearchBarModule,
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'ur'},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     // { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true }},
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
-    { provide: HTTP_INTERCEPTORS, useClass: MyHttpLogInterceptor, multi: true }
+    {provide: HTTP_INTERCEPTORS, useClass: MyHttpLogInterceptor, multi: true},
+
   ],
   entryComponents: [PersonDetailsComponent],
   bootstrap: [AppComponent]
