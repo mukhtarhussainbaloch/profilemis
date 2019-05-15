@@ -3,16 +3,19 @@ import {Person} from '../model/person';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {PersonApiService} from '../services/person-api.service';
 import {catchError, finalize} from 'rxjs/operators';
+import {Page, PagedPerson} from '../model/paged-person';
 
 export class PersonDataSource implements DataSource<Person> {
 
   private personSubject = new BehaviorSubject<Person[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
+  private personPageInfo = new BehaviorSubject<Page>(undefined);
   private singlePersonSubject = new BehaviorSubject<Person>(new Person());
 
   public loading$ = this.loadingSubject.asObservable();
+  public pageInfo$ = this.personPageInfo.asObservable();
 
-  constructor(private personDataService: PersonApiService) {
+  constructor(private apiService: PersonApiService) {
   }
 
   connect(collectionViewer: CollectionViewer): Observable<Person[] | ReadonlyArray<Person>> {
@@ -29,17 +32,22 @@ export class PersonDataSource implements DataSource<Person> {
   loadPersonData(filter: string,
                  sortDirection: string, pageIndex: number, pageSize: number) {
     this.loadingSubject.next(true);
-    this.personDataService.getAllPerson(filter, sortDirection, pageIndex, pageSize)
+    this.apiService.getAllPerson(filter, sortDirection, pageIndex, pageSize)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject.next(false))
-      ).subscribe(personList => this.personSubject.next(personList));
+      ).subscribe(
+      personList => {
+        this.personSubject.next((personList as PagedPerson).person);
+        this.personPageInfo.next((personList as PagedPerson).pageInfo);
+      }
+    );
 
   }
 
   loadPersonDataById(personId: string) {
     this.loadingSubject.next(true);
-    this.personDataService.getPersonById(personId)
+    this.apiService.getPersonById(personId)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject.next(false))

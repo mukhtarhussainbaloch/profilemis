@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Person} from '../model/person';
-import {map} from 'rxjs/operators';
+import {delay, map} from 'rxjs/operators';
 import {Moment} from 'moment';
 import * as moment from 'moment';
+import {PagedPerson} from '../model/paged-person';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,6 @@ export class PersonApiService {
     };
 
     return this.httpClient.put(this.personApiUrl + '/' + person.id, person);
-    // .subscribe((value => console.log('person updated with following details', value)),
-    //   error1 => console.error('Error updating the person', error1));
   }
 
   getPersonById(id: string) {
@@ -42,18 +41,50 @@ export class PersonApiService {
   }
 
   getAllPerson(filter = '', sortOrder = 'asc',
-               pageNumber = 0, pageSize = 20): Observable<Person[]> {
+               pageNumber = 0, pageSize = 20): Observable<PagedPerson> {
     return this.httpClient.get(this.personApiUrl,
       {
         params: new HttpParams()
-        // .set('filter', filter)
-        // .set('sortOrder', sortOrder)
+          .set('filter', filter)
+          .set('sortOrder', sortOrder)
+          .set('page', pageNumber.toString())
+          .set('size', pageSize.toString())
+      })
+      .pipe(
+        map((res: any) => {
+            return new PagedPerson(res['content'],
+              {
+                totalElements: res.totalElements,
+                totalPages: res.totalPages,
+                numberOfElements: res.numberOfElements,
+                pageSize: res.pageSize
+              });
+          }
+        ));
+  }
+
+  findPerson(
+    personId: number,
+    filter = '',
+    sortOrder = 'asc',
+    pageNumber = 0,
+    pageSize = 20): Observable<Person[]> {
+
+    return this.httpClient.get(this.personApiUrl,
+      {
+        params: new HttpParams()
+          .set('personId', personId.toString())
+          .set('filter', filter)
+          .set('sortOrder', sortOrder)
           .set('page', pageNumber.toString())
           .set('size', pageSize.toString())
       })
       .pipe(
         map((res: any) => res['content'])
       );
+  }
 
+  deletePerson(person: Person): Observable<any> {
+    return this.httpClient.delete(this.personApiUrl + '/' + person.id);
   }
 }

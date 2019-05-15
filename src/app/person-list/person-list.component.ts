@@ -8,6 +8,7 @@ import {debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {PersonDetailsComponent} from '../person-details/person-details.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {Page} from '../model/paged-person';
 
 @Component({
   selector: 'app-person-list',
@@ -21,6 +22,7 @@ export class PersonListComponent implements OnInit, AfterViewInit {
   dataSource: PersonDataSource;
   person: Person;
   selectedPerson: Person;
+  pageInfo: Page;
 
   @ViewChild('input') input: ElementRef;
 
@@ -29,9 +31,11 @@ export class PersonListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    this.person = this.route.snapshot.data['content'];
+    // this.person = this.route.snapshot.data['content'];
     this.dataSource = new PersonDataSource(this.personApiService);
-    this.dataSource.loadPersonData('', 'asc', 0, 20);
+    this.dataSource.loadPersonData('', 'asc', 0, 10);
+    this.dataSource.pageInfo$.subscribe(value => this.pageInfo = value);
+
 
   }
 
@@ -70,7 +74,7 @@ export class PersonListComponent implements OnInit, AfterViewInit {
       this.paginator.pageSize);
   }
 
-  onRowClicked(person: Person) {
+  onEdit(person: Person) {
     this.selectedPerson = person;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = this.selectedPerson;
@@ -80,15 +84,10 @@ export class PersonListComponent implements OnInit, AfterViewInit {
     dialogConfig.autoFocus = true;
 
     const matDialogRef = this.dialog.open(PersonDetailsComponent, dialogConfig);
-
-    // const dialogRef = this.dialog.open(PersonDetailsComponent, {
-    //   width: '60%',
-    //   data: this.selectedPerson,
-    // });
-
     matDialogRef.afterClosed().subscribe(result => {
       this.person = result;
       this.personApiService.updatePerson(this.person).subscribe(value => {
+        this.loadPersonPage();
       }, error1 => console.log('Error saving data ', error1));
     });
   }
@@ -103,9 +102,16 @@ export class PersonListComponent implements OnInit, AfterViewInit {
       this.person = result;
       this.personApiService.savePerson(this.person).subscribe(value => {
         console.log('Resut of object save', value);
+        this.loadPersonPage();
       }, error1 => console.log('Error saving data ', error1));
     });
 
+  }
+
+  onDelete(person: Person) {
+    this.personApiService.deletePerson(person).subscribe(value => {
+      this.loadPersonPage();
+    }, error1 => console.log('Error deleting person record ', error1));
   }
 
 }

@@ -1,95 +1,91 @@
- <div style="display: flex; align-items: start; height: 100%; justify-content: flex-start ;">
-  <button mat-raised-button style=" flex-basis: content; align-self: center;" (click)="onCreateNew()">
+ <div style="display: flex; align-items: start; height: 100%; justify-content: space-between ;">
+   <mat-form-field fxFlexAlign="start" style="flex-basis: 30%; margin-left: 1%;  border-radius: 5px;" floatLabel="never">
+     <input matInput placeholder='Search' #input  style="flex-basis: content; "  autocomplete="off">
+     <button mat-button matSuffix mat-icon-button aria-label="Clear" >
+       <mat-icon>close</mat-icon>
+     </button>
+   </mat-form-field>
+
+   <button mat-fab style=" flex-basis: content; align-self: end; " (click)="onCreateNew()">
     <mat-icon>add</mat-icon>
-    create
   </button>
 
-  <mat-form-field style="flex-basis: 30%; margin-left: 1%;  border-radius: 5px;" floatLabel="never">
-    <input matInput placeholder='Search' #input  style="flex-basis: content; "  autocomplete="off">
-    <button mat-button matSuffix mat-icon-button aria-label="Clear" >
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
 </div>
+
 <div class="mat-elevation-z8">
-    <div class="spinner-container" *ngIf="dataSource.loading$ | async">
-      <mat-spinner></mat-spinner>
-    </div>
-  <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+  <mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
 
     <!-- Id Column -->
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>>
     </ng-container>
 
     <!-- CNIC Column -->
     <ng-container matColumnDef="cnic">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>CNIC</th>
-      <td mat-cell *matCellDef="let row">{{row.cnic}}</td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CNIC</mat-header-cell>>
+      <mat-cell *matCellDef="let row">{{row.cnic}}</mat-cell>>
     </ng-container>
 
     <!-- Title Column -->
     <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
-      <td mat-cell *matCellDef="let row">{{row.title}}</td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.title}}</mat-cell>
     </ng-container>
     <!-- First Name Column -->
     <ng-container matColumnDef="firstName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
-      <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.firstName}}</mat-cell>
     </ng-container>
     <!-- Last Name Column -->
     <ng-container matColumnDef="lastName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
-      <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.lastName}}</mat-cell>
     </ng-container>
     <!-- Father Name Column -->
     <ng-container matColumnDef="fatherName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Father's Name</th>
-      <td mat-cell *matCellDef="let row">{{row.fatherName}}</td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Father's Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.fatherName}}</mat-cell>
     </ng-container>
     <!-- Date of Birth Column -->
     <ng-container matColumnDef="dateOfBirth">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of Birth</th>
-      <td mat-cell *matCellDef="let row">{{row.dateOfBirth}}</td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Date of Birth</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.dateOfBirth}}</mat-cell>
     </ng-container>
 
     <!-- Date of Birth Column -->
     <ng-container matColumnDef="gender">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Gender</th>
-      <td mat-cell *matCellDef="let row">{{row.gender}}</td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Gender</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.gender}}</mat-cell>
     </ng-container>
     <!-- Details Popup -->
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-      <td mat-cell *matCellDef="let row">
-        <button mat-icon-button color="primary" class="nav-item nav-link-edit" (click)="onRowClicked(row)">
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button color="primary" class="nav-item nav-link-edit" (click)="onEdit(row)">
           <mat-icon>launch</mat-icon>
         </button>
-<!--        <button mat-icon-button color="warn" class="nav-item nav-link-edit" [routerLink]="['/person',row.id]">-->
-          <button mat-icon-button color="warn" class="nav-item nav-link-edit" (click)="onRowClicked(row)">
-
+          <button mat-icon-button color="warn" class="nav-item nav-link-edit" (click)="onDelete(row)">
           <mat-icon>delete</mat-icon>
         </button>
-      </td>
+      </mat-cell>
     </ng-container>
     <!-- loading  Column -->
-    <ng-container matColumnDef="loading">
-      <th mat-footer-cell *matFooterCellDef colspan="6">
-        <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+    <ng-container matColumnDef="loading" >
+      <mat-footer-cell *matFooterCellDef colspan="6" style="display:flex; justify-content:center;">
+        <div class="spinner-container" *ngIf="dataSource.loading$ | async" fxFlexAlign="center">
           <mat-spinner></mat-spinner>
         </div>
-      </th>
+      </mat-footer-cell>
     </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;">row</tr>
-    <tr mat-footer-row *matFooterRowDef="['loading']"></tr>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">row</mat-row>
+    <mat-footer-row *matFooterRowDef="['loading']"></mat-footer-row>
 
-  </table>
+  </mat-table>
 
   <mat-paginator #paginator
-                 [length]="510"
+                 [length]='pageInfo?.totalElements'
                  [pageIndex]="0"
                  [pageSize]="10"
                  [pageSizeOptions]="[5,25, 50, 100, 250]"
